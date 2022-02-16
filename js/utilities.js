@@ -1,4 +1,4 @@
-const password = "otwór";
+const password = "góral";
 
 function inputLetter(letter){
     const row = document.querySelector("div.row.empty");
@@ -53,7 +53,7 @@ function findLetters(userWord){
         // _ X _ X _
         //oba dolne X były present, zamiast wyłącznie pierwszego
         // ten elseif temu zaradza
-        
+
         else if(tryPass.includes(letter) && letters.filter(char=>char===letter).length > 1){
             const foundOn = tryPass.indexOf(char => char === letter);
             if(tryPass[foundOn]===letters[index])result.push("correct");

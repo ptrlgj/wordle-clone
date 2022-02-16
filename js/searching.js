@@ -90,5 +90,38 @@ function resSort(result){
             sorted.push(missingRes)
         }
     })
-    // console.log(sorted)
+    // proba innego sortowania
+    if(sorted.length<150) console.log(sorted);
+    else{
+        const counedLetters = sortLettersByOccurance(sorted);
+        const sortedByValue = sorted.sort((a,b)=>{
+            return valueWord(b,counedLetters) - valueWord(a,counedLetters)})
+        console.log(sortedByValue);
+    }
+}
+function sortLettersByOccurance(array){
+    const lettersCountInPopular = {};
+    const singleWords = array;
+    singleWords.forEach(word => {
+        const letters = Array.from(word.split(''));
+        //DODAC SUMOWANIE LITER NA DANEJ POZYCJI JAKO ARRAY A NIE JAKO JEDEN INTIGER
+        letters.forEach((letter,index) => {
+            if(!lettersCountInPopular[letter]) {
+                lettersCountInPopular[letter] = [0,0,0,0,0];
+                lettersCountInPopular[letter][index] += 1;
+
+            }
+            else{
+                lettersCountInPopular[letter][index]++;
+            }
+        })
+    })
+    return lettersCountInPopular;
+}
+function valueWord(word,letterAmount){
+    const letters = word.split("");
+    const noDoubles = [...new Set(letters)];
+    let value = 0;
+    noDoubles.forEach((letter,index) => value += parseInt(letterAmount[letter][index]));
+    return value;
 }
