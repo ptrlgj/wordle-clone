@@ -1,4 +1,4 @@
-const password = "bułka";
+const password = "otwór";
 
 function inputLetter(letter){
     const row = document.querySelector("div.row.empty");
@@ -61,7 +61,8 @@ function changeColors(array){
         letter.classList.add(array[index]); 
     })
     row.classList.remove("empty");
-    row.classList.add("full")
+    row.classList.add("full");
+    setSearchRequirements();
 }
 
 function changeKeys(){
@@ -74,4 +75,34 @@ function changeKeys(){
         if(letter.classList.contains("correct")) keys[keyIndex].classList.add("correct")
         
     })
+}
+
+function setSearchRequirements(){
+    const usedLetters = document.querySelector("div.board").querySelectorAll("div.letter.full");
+    const correctLetters = {}
+    const presentLetters = {}
+    const absentLetters = []
+    usedLetters.forEach((letter, index) =>{
+        if(letter.classList.contains("present")){
+            if(presentLetters[letter.id]){
+                if(!presentLetters[letter.id].includes(`${index%5}`)) presentLetters[letter.id].push(`${index%5}`);
+            }
+            else{
+                presentLetters[letter.id] = Array.from(`${index%5}`)
+            }
+        }
+        else if(letter.classList.contains("absent") && !Object.keys(presentLetters).includes(letter.id)){
+            if(!absentLetters.includes(letter.id)) absentLetters.push(letter.id);
+        } 
+        else if(letter.classList.contains("correct")){
+            if(correctLetters[letter.id]){
+                if(!correctLetters[letter.id].includes(`${index%5}`)) correctLetters[letter.id].push(`${index%5}`);
+            }
+            else{
+                correctLetters[letter.id] = Array.from(`${index%5}`)
+            }
+        }
+    })
+    console.log(correctLetters,presentLetters,absentLetters)
+    // createRegex(correctLetters,presentLetters,absentLetters)
 }
