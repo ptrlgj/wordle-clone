@@ -95,7 +95,7 @@ function resSort(result){
     const topPopular = sorted.slice(0,5);
     const sortedByValue = sorted.sort((a,b)=>{
         return valueWord(b,counedLetters) - valueWord(a,counedLetters)})
-    console.log(topPopular,sortedByValue);
+    // console.log(topPopular,sortedByValue);
     renderWords(topPopular,sortedByValue.slice(0,10))
 }
 function sortLettersByOccurance(array){
@@ -138,4 +138,6 @@ function renderWords(mlw, mvw) {
         const wordSpan = `<span>${word}</span>`;
         mvwSection.insertAdjacentHTML("beforeend",wordSpan);
     })
+    const colors = getColors();
+    // console.log(colors)
 }

@@ -38,36 +38,21 @@ function submitWord(){
     }
 }
 function findLetters(userWord){
-    letters = userWord.split('')
-    const result = [];
-    let tryPass = password.split('')
-    letters.forEach((letter, index) => {
-        const clearTryPassIndex = tryPass.findIndex(char => char === letter);
-        if(letters[index] === tryPass[index]){
-            result.push("correct")
-            tryPass[clearTryPassIndex] = '';
-        }
-        else if(tryPass.includes(letter) && letters.filter(char=>char===letter).length === 1){
-            result.push("present");
-            
-            tryPass[clearTryPassIndex] = '';
-        }
+    userLetters = userWord.split('')
+    const result = ['absent','absent','absent','absent','absent'];
+    let passLetters = password.split('');
 
-        //w takiej sytuacji
-        // _ _ X _ _ 
-        // _ X _ X _
-        //oba dolne X były present, zamiast wyłącznie pierwszego
-        // ten elseif temu zaradza
-
-        else if(tryPass.includes(letter) && letters.filter(char=>char===letter).length > 1){
-            const foundOn = tryPass.indexOf(char => char === letter);
-            if(tryPass[foundOn]===letters[index])result.push("correct");
-            else {
-                result.push("present");
-                tryPass[clearTryPassIndex] = '';
-            }
+    userLetters.forEach((userLet,index) => {
+        if(userLet === passLetters[index]) {
+            result[index] = 'correct';
+            passLetters[index] = '.';
+            userLetters[index] = '.';
         }
-        else result.push("absent");
+    })
+    userLetters.forEach((userLet,index)=>{
+        passLetters.forEach(passLet =>{
+            if(passLet === userLet && !(passLet==='.')) result[index] = 'present';
+        })
     })
     changeColors(result);
     changeKeys()
@@ -92,7 +77,15 @@ function changeKeys(){
         if(letter.classList.contains("absent")) keys[keyIndex].classList.add("absent")
         if(letter.classList.contains("present")) keys[keyIndex].classList.add("present")
         if(letter.classList.contains("correct")) keys[keyIndex].classList.add("correct")
-        
     })
 }
 
+function getColors() {
+    const letters = Array.from(document.querySelectorAll("div.letter.full"));
+    const colors = {};
+    letters.forEach(letter => {
+        colors[letter.id] = letter.classList[letter.classList.length-1]
+    })
+  
+    return colors;
+}
