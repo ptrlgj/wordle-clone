@@ -71,5 +71,24 @@ function searchForMatch(regex, present) {
         })
         return flag;
     })
-    console.log(result);
+    resSort(result);
+}
+
+//na tyle ile mam liste frekwencyjna, na tyle proponuje "popularniejsze" słowo z pasujących
+function resSort(result){
+    let sorted = [];
+    result.forEach(res => {
+        if(popular[res]){
+            sorted.push(res);
+        }
+    })
+    sorted = sorted.sort((elA, elB) => {
+        return popular[elB] - popular[elA]
+    })
+    result.forEach(missingRes => {
+        if(!sorted.includes(missingRes)){
+            sorted.push(missingRes)
+        }
+    })
+    // console.log(sorted)
 }
