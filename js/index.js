@@ -12,3 +12,13 @@ window.addEventListener("keydown", e => {
         submitWord();
     }
 })
+document.querySelector("div.keyboard").addEventListener("click", e => {
+    if(e.target.matches("div.row") || e.target === e.currentTarget) return
+    if(e.target.textContent === "ENTER"){
+        submitWord()
+    }else if(e.target.textContent === "BAKSPC"){
+        removeLetter()
+    }else{
+        inputLetter(e.target.textContent)
+    }
+})

@@ -24,9 +24,29 @@ function submitWord(){
     }).join('');
     const validateWord = words.findIndex(word => word === userWord.toLocaleLowerCase())
     if(validateWord>=0){
-        console.log(userWord.toLowerCase())
+        findLetters(userWord.toLowerCase())
         }
     else{
         alert("Nie ma takiego słowa w bazie")
     }
+}
+function findLetters(userWord){
+    letters = userWord.split('')
+    const result = [];
+    let tryPass = password.split('')
+    letters.forEach((letter, index) => {
+        if(letters[index] === tryPass[index]){
+            result.push("correct")
+            const clearTryPassIndex = tryPass.findIndex(char => char === letter);
+            tryPass[clearTryPassIndex] = '';
+        }
+        else if(tryPass.includes(letter)){
+            result.push("present");
+            const clearTryPassIndex = tryPass.findIndex(char => char === letter);
+            tryPass[clearTryPassIndex] = '';
+        }
+        else result.push("absent");
+    })
+    console.log(result);
+
 }
