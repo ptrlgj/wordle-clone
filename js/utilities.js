@@ -1,4 +1,4 @@
-const password = "śledź";
+const password = "otwór";
 
 function inputLetter(letter){
     const row = document.querySelector("div.row.empty");
@@ -37,15 +37,30 @@ function findLetters(userWord){
     const result = [];
     let tryPass = password.split('')
     letters.forEach((letter, index) => {
+        const clearTryPassIndex = tryPass.findIndex(char => char === letter);
         if(letters[index] === tryPass[index]){
             result.push("correct")
-            const clearTryPassIndex = tryPass.findIndex(char => char === letter);
             tryPass[clearTryPassIndex] = '';
         }
         else if(tryPass.includes(letter) && letters.filter(char=>char===letter).length === 1){
             result.push("present");
-            const clearTryPassIndex = tryPass.findIndex(char => char === letter);
+            
             tryPass[clearTryPassIndex] = '';
+        }
+
+        //w takiej sytuacji
+        // _ _ X _ _ 
+        // _ X _ X _
+        //oba dolne X były present, zamiast wyłącznie pierwszego
+        // ten elseif temu zaradza
+        
+        else if(tryPass.includes(letter) && letters.filter(char=>char===letter).length > 1){
+            const foundOn = tryPass.indexOf(char => char === letter);
+            if(tryPass[foundOn]===letters[index])result.push("correct");
+            else {
+                result.push("present");
+                tryPass[clearTryPassIndex] = '';
+            }
         }
         else result.push("absent");
     })
