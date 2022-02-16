@@ -50,6 +50,7 @@ function findLetters(userWord){
         else result.push("absent");
     })
     changeColors(result);
+    changeKeys()
 }
 
 function changeColors(array){
@@ -61,4 +62,16 @@ function changeColors(array){
     })
     row.classList.remove("empty");
     row.classList.add("full")
+}
+
+function changeKeys(){
+    const letters = Array.from(document.querySelectorAll("div.letter.full"));
+    const keys = Array.from(document.querySelectorAll("div.key"));
+    letters.forEach(letter => {
+        const keyIndex = keys.findIndex(key => key.id === letter.id)
+        if(letter.classList.contains("absent")) keys[keyIndex].classList.add("absent")
+        if(letter.classList.contains("present")) keys[keyIndex].classList.add("present")
+        if(letter.classList.contains("correct")) keys[keyIndex].classList.add("correct")
+        
+    })
 }
