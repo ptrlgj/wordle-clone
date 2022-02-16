@@ -96,6 +96,7 @@ function resSort(result){
     const sortedByValue = sorted.sort((a,b)=>{
         return valueWord(b,counedLetters) - valueWord(a,counedLetters)})
     console.log(topPopular,sortedByValue);
+    renderWords(topPopular,sortedByValue.slice(0,10))
 }
 function sortLettersByOccurance(array){
     const lettersCountInPopular = {};
@@ -122,4 +123,19 @@ function valueWord(word,letterAmount){
     let value = 0;
     noDoubles.forEach((letter,index) => value += parseInt(letterAmount[letter][index]));
     return value;
+}
+
+function renderWords(mlw, mvw) {
+    const mvwSection = document.querySelector("div.ranked section")
+    const mlwSection = document.querySelector("div.potential section")
+    mlwSection.textContent = '';
+    mvwSection.textContent = ''
+    mlw.forEach(word => {
+        const wordSpan = `<span>${word}</span>`;
+        mlwSection.insertAdjacentHTML("beforeend",wordSpan);
+    })
+    mvw.forEach(word => {
+        const wordSpan = `<span>${word}</span>`;
+        mvwSection.insertAdjacentHTML("beforeend",wordSpan);
+    })
 }
