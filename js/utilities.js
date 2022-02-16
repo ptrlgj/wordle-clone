@@ -1,4 +1,9 @@
-const password = "góral";
+const password = randomWord();
+
+function randomWord() {
+    const rand = Math.floor(Math.random() * 500)
+    return popular3000[rand];
+}
 
 function inputLetter(letter){
     const row = document.querySelector("div.row.empty");
@@ -71,7 +76,6 @@ function findLetters(userWord){
 function changeColors(array){
     const row = document.querySelector("div.row.empty");
     const letters = row.querySelectorAll("div.letter");
-    const keyLetters = Array.from(document.querySelectorAll("div.key"));
     letters.forEach((letter,index) => {
         letter.classList.add(array[index]); 
     })

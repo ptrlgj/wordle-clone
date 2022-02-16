@@ -91,13 +91,11 @@ function resSort(result){
         }
     })
     // proba innego sortowania
-    if(sorted.length<150) console.log(sorted);
-    else{
-        const counedLetters = sortLettersByOccurance(sorted);
-        const sortedByValue = sorted.sort((a,b)=>{
-            return valueWord(b,counedLetters) - valueWord(a,counedLetters)})
-        console.log(sortedByValue);
-    }
+    const counedLetters = sortLettersByOccurance(sorted);
+    const topPopular = sorted.slice(0,5);
+    const sortedByValue = sorted.sort((a,b)=>{
+        return valueWord(b,counedLetters) - valueWord(a,counedLetters)})
+    console.log(topPopular,sortedByValue);
 }
 function sortLettersByOccurance(array){
     const lettersCountInPopular = {};
