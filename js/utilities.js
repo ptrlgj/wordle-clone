@@ -1,3 +1,5 @@
+const password = "bułka";
+
 function inputLetter(letter){
     const row = document.querySelector("div.row.empty");
     const column = row.querySelector("div.letter.empty");
@@ -40,13 +42,23 @@ function findLetters(userWord){
             const clearTryPassIndex = tryPass.findIndex(char => char === letter);
             tryPass[clearTryPassIndex] = '';
         }
-        else if(tryPass.includes(letter)){
+        else if(tryPass.includes(letter) && letters.filter(char=>char===letter).length === 1){
             result.push("present");
             const clearTryPassIndex = tryPass.findIndex(char => char === letter);
             tryPass[clearTryPassIndex] = '';
         }
         else result.push("absent");
     })
-    console.log(result);
+    changeColors(result);
+}
 
+function changeColors(array){
+    const row = document.querySelector("div.row.empty");
+    const letters = row.querySelectorAll("div.letter");
+    const keyLetters = Array.from(document.querySelectorAll("div.key"));
+    letters.forEach((letter,index) => {
+        letter.classList.add(array[index]); 
+    })
+    row.classList.remove("empty");
+    row.classList.add("full")
 }
