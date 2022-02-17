@@ -23,6 +23,7 @@ function removeLetter(){
     column.classList.add("empty");
 }
 function submitWord(){
+    const gameCheck = document.querySelector("label.game input");
     const row = document.querySelector("div.row.empty");
     const letters = Array.from(row.querySelectorAll("div.full"));
     if(letters.length<5) return;
@@ -30,9 +31,13 @@ function submitWord(){
         return letter.textContent;
     }).join('');
     const validateWord = words.findIndex(word => word === userWord.toLocaleLowerCase())
-    if(validateWord>=0){
+    console.log(gameCheck.checked)
+    if(validateWord>=0 && gameCheck.checked){
         findLetters(userWord.toLowerCase())
         }
+    else if(validateWord >=0 && !(gameCheck.checked)){
+        flatLetters(userWord.toLowerCase())
+    }
     else{
         alert("Nie ma takiego słowa w bazie")
     }
@@ -57,6 +62,15 @@ function findLetters(userWord){
     changeColors(result);
     changeKeys()
 }
+function flatLetters(userWord){
+    letters = userWord.split('')
+    const result = [];
+    letters.forEach(() => {
+        result.push("absent");
+    })
+    changeColors(result);
+    changeKeys()
+}
 
 function changeColors(array){
     const row = document.querySelector("div.row.empty");
@@ -74,17 +88,31 @@ function changeKeys(){
     const keys = Array.from(document.querySelectorAll("div.key"));
     letters.forEach(letter => {
         const keyIndex = keys.findIndex(key => key.id === letter.id)
-        if(letter.classList.contains("absent")) keys[keyIndex].classList.add("absent")
-        if(letter.classList.contains("present")) keys[keyIndex].classList.add("present")
-        if(letter.classList.contains("correct")) keys[keyIndex].classList.add("correct")
+        if(letter.classList.contains("absent")){
+            keys[keyIndex].classList.add("absent");
+            keys[keyIndex].classList.remove("present");
+            keys[keyIndex].classList.remove("correct");
+        }
+        else if(letter.classList.contains("present")){
+            keys[keyIndex].classList.add("present");
+            keys[keyIndex].classList.remove("absent");
+            keys[keyIndex].classList.remove("correct");
+        }
+        else if(letter.classList.contains("correct")){
+            keys[keyIndex].classList.add("correct");
+            keys[keyIndex].classList.remove("absent");
+            keys[keyIndex].classList.remove("present");
+        }
+        
     })
 }
-
+//not working
 function getColors() {
-    const letters = Array.from(document.querySelectorAll("div.letter.full"));
+    let letters = Array.from(document.querySelectorAll("div.key"));
+    letters = letters.filter(letter => (letter.classList.contains("present") || letter.classList.contains("correct")) )
     const colors = {};
     letters.forEach(letter => {
-        colors[letter.id] = letter.classList[letter.classList.length-1]
+        console.log(letter)
     })
   
     return colors;
