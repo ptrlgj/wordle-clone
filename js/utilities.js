@@ -144,14 +144,25 @@ function toggleGame(e) {
         findLetters(word);
     })
 }
-//not working
+
 function getColors() {
-    let letters = Array.from(document.querySelectorAll("div.key"));
+    let letters = Array.from(document.querySelectorAll("div.letter.full"));
     letters = letters.filter(letter => (letter.classList.contains("present") || letter.classList.contains("correct")) )
     const colors = {};
     letters.forEach(letter => {
-        // console.log(letter)
+        const letterKey = letter.id.toLowerCase();
+        const letterValue = letter.classList[letter.classList.length-1]
+        // console.log(letter.id, letter.classList[letter.classList.length-1]);
+        if(colors[letterKey] && colors[letter.id] === "correct") return;
+        else colors[letterKey] = letterValue;
     })
-  
     return colors;
+}
+function getGreens() {
+    let letters = Array.from(document.querySelectorAll("div.letter.full"));
+    const position = [];
+    letters.forEach((letter,index) => {
+        if(letter.classList.contains("correct")) position.push(index%5)
+    })
+    return position;
 }

@@ -148,18 +148,32 @@ function valueWord(word,letterAmount){
 }
 
 function renderWords(mlw, mvw) {
-    const mvwSection = document.querySelector("div.ranked section")
-    const mlwSection = document.querySelector("div.potential section")
+    const mvwSection = document.querySelector("div.ranked section");
+    const mlwSection = document.querySelector("div.potential section");
     mlwSection.textContent = '';
-    mvwSection.textContent = ''
+    mvwSection.textContent = '';
+    const colors = getColors();
+    const greenPosition = getGreens();
     mlw.forEach(word => {
-        const wordSpan = `<span>${word}</span>`;
+        const spelledWord = [...word.split('')]
+        const marks = [];
+        spelledWord.forEach((letter,index) => {
+            if (colors[letter] && greenPosition.length > 0 && greenPosition.includes(index)) marks.push(`<mark class="correct">${letter}</mark>`);
+            else if(colors[letter]) marks.push(`<mark class="present">${letter}</mark>`);
+            else marks.push(`<mark class="absent">${letter}</mark>`);
+        })
+        const wordSpan = `<span>${marks.join('')}</span>`;
         mlwSection.insertAdjacentHTML("beforeend",wordSpan);
     })
     mvw.forEach(word => {
-        const wordSpan = `<span>${word}</span>`;
+        const spelledWord = [...word.split('')]
+        const marks = []
+        spelledWord.forEach((letter,index) => {
+            if (colors[letter] && greenPosition.length > 0 && greenPosition.includes(index)) marks.push(`<mark class="correct">${letter}</mark>`);
+            else if(colors[letter]) marks.push(`<mark class="present">${letter}</mark>`);
+            else marks.push(`<mark class="absent">${letter}</mark>`);
+        })
+        const wordSpan = `<span>${marks.join('')}</span>`;
         mvwSection.insertAdjacentHTML("beforeend",wordSpan);
     })
-    const colors = getColors();
-    // console.log(colors)
 }
