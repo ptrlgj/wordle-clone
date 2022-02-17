@@ -31,7 +31,6 @@ function submitWord(){
         return letter.textContent;
     }).join('');
     const validateWord = words.findIndex(word => word === userWord.toLocaleLowerCase())
-    console.log(gameCheck.checked)
     if(validateWord>=0 && gameCheck.checked){
         findLetters(userWord.toLowerCase())
         }
@@ -106,13 +105,52 @@ function changeKeys(){
         
     })
 }
+const toggleCheckboxes = (e) => {
+    e.target.toggleAttribute("checked")
+    if(e.target.parentNode.classList.contains("game")){
+        toggleGame(e)
+    }
+    else if(e.target.parentNode.classList.contains("solver")){
+        toggleSolver(e);
+    }
+}
+function toggleSolver(e){
+    const solverDivs = document.querySelectorAll("div.solver");
+    if(e.target.checked){
+        solverDivs.forEach(div => div.classList.remove("hidden"))
+    }
+    else{
+        solverDivs.forEach(div => div.classList.add("hidden"))
+    }
+}
+function toggleGame(e) {
+    if(!e.target.checked) return;
+    const fullRows = document.querySelectorAll("div.row.full");
+    let fullWords = []
+    fullRows.forEach(row => {
+        let word = []
+        const fullWord = row.querySelectorAll("div.letter.full")
+        fullWord.forEach(letter => word.push(letter.id.toLowerCase()))
+        fullWord.forEach(letter => {
+            letter.classList.remove("absent");
+            letter.classList.remove("present");
+            letter.classList.remove("correct");
+        })
+        fullWords.push(word.join(""));
+        row.classList.remove("full");
+        row.classList.add("empty");
+    })
+    fullWords.forEach(word => {
+        findLetters(word);
+    })
+}
 //not working
 function getColors() {
     let letters = Array.from(document.querySelectorAll("div.key"));
     letters = letters.filter(letter => (letter.classList.contains("present") || letter.classList.contains("correct")) )
     const colors = {};
     letters.forEach(letter => {
-        console.log(letter)
+        // console.log(letter)
     })
   
     return colors;

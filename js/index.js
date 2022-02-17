@@ -22,3 +22,6 @@ document.querySelector("div.keyboard").addEventListener("click", e => {
         inputLetter(e.target.textContent)
     }
 })
+
+document.querySelector("div.board").addEventListener("mouseup",setStatus);
+document.querySelector("div.options").addEventListener("input",toggleCheckboxes)

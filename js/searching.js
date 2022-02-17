@@ -1,3 +1,25 @@
+const setStatus = (e) => {
+    const gameCheck = document.querySelector("label.game input");
+    if(gameCheck.checked) return;
+    if(e.target === e.currentTarget || e.target.matches("div.row")) return;
+    const divClasses = e.target.classList;
+    if(!divClasses.contains("full"))return;
+    if(divClasses.contains("absent")){
+        divClasses.remove("absent");
+        divClasses.add("present");
+    }
+    else if(divClasses.contains("present")){
+        divClasses.remove("present");
+        divClasses.add("correct");
+    }
+    else if(divClasses.contains("correct")){
+        divClasses.remove("correct");
+        divClasses.add("absent");
+    }
+    changeKeys();
+    setSearchRequirements();
+}
+
 function setSearchRequirements(){
     const usedLetters = document.querySelector("div.board").querySelectorAll("div.letter.full");
     const correctLetters = {}

@@ -36,6 +36,10 @@ div.potential {
     grid-row: 2 / 4;
 }
 
+div.hidden {
+    opacity: 0;
+}
+
 section {
     width: 100%;
     height: 100%;
