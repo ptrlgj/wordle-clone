@@ -27,6 +27,8 @@ header {
     grid-column: 2 / 3;
 }
 
+/* suggestions */
+
 div.ranked {
     grid-row: 2 / 3;
 }
@@ -48,6 +50,25 @@ section {
     align-items: start;
     justify-content: center;
 }
+
+div.solver span {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 5px;
+}
+
+div.solver span mark {
+    color: white;
+    font-weight: 600;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    text-transform: capitalize;
+}
+
+/* board */
 
 div.board {
     justify-content: center;
@@ -72,6 +93,8 @@ div.board div.letter {
     font-size: 40px;
 }
 
+/* keyboard */
+
 div.keyboard {
     display: grid;
     grid-column: 2 / 3;
@@ -95,6 +118,8 @@ div.keyboard div.row div.key {
     align-items: center;
 }
 
+/* color status */
+
 div.row div.absent,
 div.keyboard div.row div.key.absent,
 mark.absent {
@@ -115,19 +140,45 @@ mark.correct {
     border-color: var(--color-correct);
 }
 
-div.solver span {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr;
-    grid-gap: 5px;
+
+/* toggle switch */
+
+div.options input {
+    display: none;
 }
 
-div.solver span mark {
-    color: white;
-    font-weight: 600;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    text-transform: capitalize;
+label.switch {
+    --width: 40px;
+    --height: calc(var(--width)/2);
+    --border-radius: calc(var(--height)/2);
+}
+
+.slider {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--border-radius);
+    background: var(--color-absent);
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.slider::after {
+    content: "";
+    position: absolute;
+    width: var(--height);
+    height: var(--height);
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+}
+
+input.switch__input:checked~.slider {
+    background: var(--color-correct);
+}
+
+input.switch__input:checked~.slider::after {
+    transform: translateX(var(--height));
 }
