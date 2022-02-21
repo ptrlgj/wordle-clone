@@ -7,6 +7,8 @@
     --color-keys: #86888a;
     --cell-height: 65px;
     --cell-gap: 3px;
+    --key-height: 52px;
+    --key-width: 42px;
 }
 
 * {
@@ -41,9 +43,6 @@ div.potential {
     grid-row: 2 / 3;
 }
 
-div.hidden {
-    opacity: 0;
-}
 
 section {
     width: 100%;
@@ -71,6 +70,13 @@ div.solver span mark {
     text-transform: capitalize;
 }
 
+div.hidden {
+    opacity: 0;
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
 /* board */
 
 div.board {
@@ -95,14 +101,16 @@ div.board div.letter {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
+    font-size: calc(var(--cell-height) * 0.65);
 }
 
 /* keyboard */
 
 div.keyboard {
-    display: grid;
     grid-column: 2 / 3;
+    display: grid;
+    grid-template-rows: repeat(4, var(--key-height));
+    grid-gap: var(--cell-gap);
 }
 
 div.keyboard div.row {
@@ -112,15 +120,16 @@ div.keyboard div.row {
 
 div.keyboard div.row div.key {
     background: var(--color-keys);
-    display: flex;
-    margin: 5px;
     border-radius: 5px;
-    min-height: 51px;
-    min-width: 32px;
-    padding-left: 5px;
-    padding-right: 5px;
+    min-width: var(--key-width);
+    margin: 0 calc(var(--cell-gap)/2) 0;
+    display: flex;
     justify-content: center;
     align-items: center;
+}
+
+div.keyboard div.row div.func {
+    padding: 0 4px 0;
 }
 
 /* color status */
@@ -189,4 +198,61 @@ input.switch__input:checked~.slider {
 
 input.switch__input:checked~.slider::after {
     transform: translateX(var(--height));
+}
+
+/* media queries */
+
+@media (max-width: 900px) {
+    body {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    header {
+        grid-column: span 2;
+        grid-row: 1;
+        align-self: end;
+    }
+
+    div.board {
+        grid-column: span 2;
+        grid-row: 2;
+    }
+
+    div.keyboard {
+        grid-row: 3;
+        grid-column: span 2;
+    }
+
+    div.options {
+        grid-row: 4;
+        grid-column: span 2;
+    }
+
+    div.ranked {
+        grid-row: 5;
+        grid-column: 1;
+    }
+
+    div.potential {
+        grid-row: 5;
+        grid-column: 2;
+    }
+}
+
+@media(max-height: 700px) {
+    :root {
+        --cell-height: 55px;
+    }
+}
+
+@media(max-height: 630px) {
+    :root {
+        --cell-height: 45px;
+    }
+}
+
+@media(max-height: 570px) {
+    :root {
+        --cell-height: 35px;
+    }
 }

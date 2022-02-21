@@ -14,9 +14,9 @@ window.addEventListener("keydown", e => {
 })
 document.querySelector("div.keyboard").addEventListener("click", e => {
     if(e.target.matches("div.row") || e.target === e.currentTarget) return
-    if(e.target.textContent === "ENTER"){
+    if(e.target.textContent === "⏎"){
         submitWord()
-    }else if(e.target.textContent === "BAKSPC"){
+    }else if(e.target.textContent === "⌫"){
         removeLetter()
     }else{
         inputLetter(e.target.textContent)
