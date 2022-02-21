@@ -242,6 +242,13 @@ input.switch__input:checked~.slider::after {
     }
 }
 
+@media (max-width: 800px) {
+    body {
+        --key-height: 42px;
+        --key-width: 32px;
+    }
+}
+
 @media(max-height: 700px) {
     :root {
         --cell-height: 55px;
