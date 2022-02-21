@@ -206,6 +206,8 @@ input.switch__input:checked~.slider::after {
 @media (max-width: 900px) {
     body {
         grid-template-columns: 1fr 1fr;
+        --key-height: 47px;
+        --key-width: 37px;
     }
 
     header {
