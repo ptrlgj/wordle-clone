@@ -111,6 +111,7 @@ div.keyboard {
     display: grid;
     grid-template-rows: repeat(4, var(--key-height));
     grid-gap: var(--cell-gap);
+    justify-self: center;
 }
 
 div.keyboard div.row {
